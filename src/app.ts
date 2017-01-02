@@ -1,5 +1,3 @@
-import * as THREE from "three";
-
 interface Arrow3 {
   direction : THREE.Vector3;
   pos : THREE.Vector3;
@@ -22,16 +20,32 @@ function addArrows(scene : THREE.Scene) {
   }
 }
 
-function updateLoop(renderer : THREE.Renderer,
-  scene : THREE.Scene,
-  camera : THREE.Camera) {
+function updateLoop(controls) {
   console.log("hey");
-  renderer.render(scene, camera);
   function update() {
-    renderer.render(scene, camera);
+    console.log("hey");
+    window.requestAnimationFrame(update);
+    controls.update();
   }
   console.log("hey");
   window.requestAnimationFrame(update);
+
+  return update;
+}
+
+function createControls(camera: THREE.Camera, update) {
+  const controls = new THREE.TrackballControls(camera);
+  controls.rotateSpeed = 1.0;
+  controls.zoomSpeed = 1.2;
+  controls.panSpeed = 0.8;
+  controls.noZoom = false;
+  controls.noPan = false;
+  controls.staticMoving = true;
+  controls.dynamicDampingFactor = 0.3;
+  controls.keys = [ 65, 83, 68 ];
+  controls.addEventListener( 'change', update );
+
+  return controls;
 }
 
 function setup() {
@@ -60,7 +74,11 @@ function setup() {
   renderer.setSize(WIDTH, HEIGHT);
   container.appendChild(renderer.domElement);
   addArrows(scene);
-  updateLoop(renderer, scene, camera);
+  function renderCallback() {
+    renderer.render(scene, camera);
+  }
+  const controls = createControls(camera, renderCallback);
+  const update = updateLoop(controls);
 };
 
 console.log("hi");
