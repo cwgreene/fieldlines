@@ -1,0 +1,15 @@
+{
+  "name": "fieldlines",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/three": "^0.81.0",
+    "three": "^0.83.0"
+  }
+}
