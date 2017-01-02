@@ -21,13 +21,10 @@ function addArrows(scene : THREE.Scene) {
 }
 
 function updateLoop(controls) {
-  console.log("hey");
   function update() {
-    console.log("hey");
     window.requestAnimationFrame(update);
     controls.update();
   }
-  console.log("hey");
   window.requestAnimationFrame(update);
 
   return update;
@@ -66,18 +63,22 @@ function setup() {
     ASPECT,
     NEAR,
     FAR);
-  camera.position.z = 20;
-  camera.position.x = 6;
-  camera.position.y = 6;
-  camera.lookAt(new THREE.Vector3(6,6,0));
-  scene.add(camera);
-  renderer.setSize(WIDTH, HEIGHT);
-  container.appendChild(renderer.domElement);
-  addArrows(scene);
   function renderCallback() {
     renderer.render(scene, camera);
   }
   const controls = createControls(camera, renderCallback);
+  camera.position.z = 20;
+  camera.position.x = 6;
+  camera.position.y = 6;
+  // The controls control where the camera is pointing,
+  // called the target. It's best to have the controls have
+  // sole ownership of this, so we change the target of the
+  // controls, rather than the orientation of the camera.
+  controls.target = new THREE.Vector3(6,6,0);
+  scene.add(camera);
+  renderer.setSize(WIDTH, HEIGHT);
+  container.appendChild(renderer.domElement);
+  addArrows(scene);
   const update = updateLoop(controls);
   renderCallback();
 };
