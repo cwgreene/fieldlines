@@ -79,6 +79,7 @@ function setup() {
   }
   const controls = createControls(camera, renderCallback);
   const update = updateLoop(controls);
+  renderCallback();
 };
 
 console.log("hi");
