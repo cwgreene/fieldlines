@@ -1,3 +1,5 @@
+import * as numeric from 'numeric';
+
 interface Arrow3 {
   direction : THREE.Vector3;
   pos : THREE.Vector3;
