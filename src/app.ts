@@ -47,7 +47,7 @@ function setup() {
     renderer.render(scene, camera);
   }
   const controls = createControls(camera, renderCallback);
-  camera.position.z = 20;
+  camera.position.z = -20;
   camera.position.x = 6;
   camera.position.y = 6;
   // The controls control where the camera is pointing,
