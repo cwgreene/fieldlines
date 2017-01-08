@@ -35,7 +35,6 @@ function addSphericalCharges(scene : THREE.Scene, particles: Particle[]) {
     [false, 0x0000ff]
   ]);
   for (const particle of particles) {
-    console.log(particle);
     const geometry = new THREE.SphereGeometry(.25, 32, 32);
     const material = new THREE.MeshBasicMaterial({color: colors.get(particle.q>0)});
     const sphere = new THREE.Mesh(geometry, material);

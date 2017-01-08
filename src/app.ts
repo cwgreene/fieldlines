@@ -63,5 +63,4 @@ function setup() {
   renderCallback();
 };
 
-console.log("hi");
 setup();
