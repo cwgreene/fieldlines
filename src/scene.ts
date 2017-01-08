@@ -1,14 +1,10 @@
 import {generateForceField} from './force';
+import {Particle} from './physicsTypes';
 
 interface Arrow3 {
   direction : THREE.Vector3;
   pos : THREE.Vector3;
   length : number;
-};
-
-interface Particle {
-  pos : number[];
-  q : number;
 };
 
 const GRID_DIM = 12;
@@ -29,18 +25,18 @@ function addArrows(scene : THREE.Scene, f) {
   }
 }
 
-function setupForceField(particles) {
+function setupForceField(particles: Particle[]) {
   return generateForceField(particles);
 }
 
-function addSphericalCharges(scene, particles) {
+function addSphericalCharges(scene : THREE.Scene, particles: Particle[]) {
   const colors = new Map([
     [true, 0xff0000],
     [false, 0x0000ff]
   ]);
   for (const particle of particles) {
     console.log(particle);
-    const geometry = new THREE.SphereGeometry(.05, 32, 32);
+    const geometry = new THREE.SphereGeometry(.25, 32, 32);
     const material = new THREE.MeshBasicMaterial({color: colors.get(particle.q>0)});
     const sphere = new THREE.Mesh(geometry, material);
     sphere.position.x = particle.pos[0];
