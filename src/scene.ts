@@ -22,7 +22,8 @@ function addArrows(scene : THREE.Scene, f) {
         const force = new THREE.Vector3(vector[0],vector[1],vector[2]);
         scene.add(new THREE.ArrowHelper(
           force.normalize(),
-          new THREE.Vector3(i,j,-k)));
+          new THREE.Vector3(i,j,k),
+          force.length()/2));
       }
     }
   }
@@ -38,7 +39,8 @@ function addSphericalCharges(scene, particles) {
     [false, 0x0000ff]
   ]);
   for (const particle of particles) {
-    const geometry = new THREE.SphereGeometry(.5, 32, 32);
+    console.log(particle);
+    const geometry = new THREE.SphereGeometry(.05, 32, 32);
     const material = new THREE.MeshBasicMaterial({color: colors.get(particle.q>0)});
     const sphere = new THREE.Mesh(geometry, material);
     sphere.position.x = particle.pos[0];
@@ -49,7 +51,10 @@ function addSphericalCharges(scene, particles) {
 }
 
 export function createScene(scene: THREE.Scene) {
-  const particles : Particle[] = [{pos:[5,2.5,0], q: -1},{pos:[5,7.5,0], q: 1}];
+  const particles : Particle[] = [
+    {pos:[5,2.5,0], q: -1},
+    {pos:[5,7.5,0], q: 1},
+  ];
   const forceField = setupForceField(particles);
   addArrows(scene, forceField);
   addSphericalCharges(scene, particles);
