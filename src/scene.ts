@@ -6,10 +6,15 @@ interface Arrow3 {
   length : number;
 };
 
+interface Particle {
+  pos : number[];
+  q : number;
+};
+
 const GRID_DIM = 12;
 let grid : Arrow3[][][];
 
-function addArrows(f, scene : THREE.Scene) {
+function addArrows(scene : THREE.Scene, f) {
   for (var i = 0; i < GRID_DIM; i++) {
     for (var j = 0; j < GRID_DIM; j++) {
       for (var k = 0; k < GRID_DIM; k++) {
@@ -23,14 +28,29 @@ function addArrows(f, scene : THREE.Scene) {
   }
 }
 
-function setupForceField() {
-  const particles = [{pos:[5,2.5,0], q: -1},{pos:[5,7.5,0], q: 1}];
+function setupForceField(particles) {
   return generateForceField(particles);
-  //return function (x,y,z) { return [x, x*x, 1] }
 }
 
+function addSphericalCharges(scene, particles) {
+  const colors = new Map([
+    [true, 0xff0000],
+    [false, 0x0000ff]
+  ]);
+  for (const particle of particles) {
+    const geometry = new THREE.SphereGeometry(.5, 32, 32);
+    const material = new THREE.MeshBasicMaterial({color: colors.get(particle.q>0)});
+    const sphere = new THREE.Mesh(geometry, material);
+    sphere.position.x = particle.pos[0];
+    sphere.position.y = particle.pos[1];
+    sphere.position.z = particle.pos[2];
+    scene.add(sphere);
+  }
+}
 
 export function createScene(scene: THREE.Scene) {
-  const forceField = setupForceField();
-  addArrows(forceField, scene);
+  const particles : Particle[] = [{pos:[5,2.5,0], q: -1},{pos:[5,7.5,0], q: 1}];
+  const forceField = setupForceField(particles);
+  addArrows(scene, forceField);
+  addSphericalCharges(scene, particles);
 }
