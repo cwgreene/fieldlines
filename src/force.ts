@@ -1,24 +1,17 @@
 import * as numeric from 'numeric';
 import {Particle} from './physicsTypes';
 
+/*
+ * Given two vectors and a one dimensional force function f, returns
+ * a force in the r̂ direction of magnitude f(|a-b|).
+ */
 export function centralForce(a: number[],
   b: number[],
   f: (r:number) => number) {
-  const dist = numeric.sub(a,b);
+  const dist = numeric.sub(b,a);
   const r = numeric.norm2(dist);
   const force = f(r);
   return [force*dist[0]/r, force*dist[1]/r, force*dist[2]/r];
-}
-
-export function inverseSquareForce(a: number[], b: number[]) {
-    // Force is 1/r² in the r-hat (r̂) direction.
-    // Which means the force is (x/r³)x̂+ (y/r³)ŷ
-    // where x and y are the compoents in the distance
-    // vector between the two vectors a,b
-    const dist = numeric.sub(a,b);
-    const norm = numeric.norm2(dist);
-    const r3 = Math.pow(Math.sqrt(norm), 3);
-    return [dist[0]/r3, dist[1]/r3, dist[2]/r3];
 }
 
 /*
