@@ -25,11 +25,12 @@ export function inverseSquareForce(a: number[], b: number[]) {
  * Generates forcefield at the point (x,y,z).
  */
 export function generateForceField(particles : Particle[]) {
+  const isq = (a,b) => centralForce(a,b, (r) => 1/(r*r));
   return function(x: number, y: number, z: number) {
     let totalForce = [0, 0, 0];
     for (const particle of particles) {
       totalForce = numeric.add(totalForce, numeric.mul(particle.q,
-        inverseSquareForce([x, y, z], particle.pos)));
+        isq([x, y, z], particle.pos)));
     }
     return totalForce;
   }
