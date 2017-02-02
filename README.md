@@ -1,3 +1,2 @@
 `npm install`.
-To use, run `node_modules/.bin/webpack-dev-server`.
-
+To use, run `npm run server`
