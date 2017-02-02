@@ -11,6 +11,10 @@
   "devDependencies": {
     "@types/three": "^0.81.0",
     "numeric": "^1.2.6",
-    "three": "^0.83.0"
+    "three": "^0.83.0",
+    "ts-loader": "^2.0.0",
+    "typescript": "^2.1.5",
+    "webpack": "^2.2.1",
+    "webpack-dev-server": "^1.16.3"
   }
 }

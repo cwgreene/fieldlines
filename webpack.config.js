@@ -1,5 +1,4 @@
 var webpack = require('webpack');
-var failPlugin = require('webpack-fail-plugin');
 
 module.exports = {
   // Note: can put three in the build list here but it slows iterations down a lot.
@@ -16,13 +15,12 @@ module.exports = {
     //new webpack.optimize.UglifyJsPlugin(),
 
     // This stops webpack from proceeding if something fails with a non-zero exit.
-    failPlugin
   ],
 
   resolve: {
     //extensions: ['', '.js', '.es6']
     //extensions: ['', '.ts']
-    extensions: ['', '.webpack.js', '.web.js', '.ts', '.tsx', '.js']
+    extensions: ['.webpack.js', '.web.js', '.ts', '.tsx', '.js']
   },
 
   module: {
